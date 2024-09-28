@@ -1,7 +1,10 @@
 package com.example.library.model;
 
 import jakarta.persistence.*;
-
+/**
+ * Book, kütüphane sistemindeki kitapları temsil eden bir sınıftır.
+ * Bu sınıf, kitap bilgilerini ve ilişkili üye bilgilerini içerir.
+ */
 @Entity
 public class Book {
 

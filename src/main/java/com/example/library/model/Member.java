@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Member, kütüphane sistemindeki üyeleri temsil eden bir sınıftır.
+ * Bu sınıf, üye bilgilerini ve ödünç alınan kitapları içerir.
+ */
 @Entity
 public class Member {
     @Id

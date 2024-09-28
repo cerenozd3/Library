@@ -1,7 +1,10 @@
 package com.example.library.model;
 
 import java.util.Date;
-
+/**
+ * BorrowTransaction, bir ödünç alma işlemini temsil eden sınıftır.
+ * Bu sınıf, hangi üyenin hangi kitabı ne zaman ödünç aldığını ve geri iade tarihini içerir.
+ */
 public class BorrowTransaction {
     private int transactionId;
     private Member member;

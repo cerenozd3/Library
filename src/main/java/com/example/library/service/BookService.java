@@ -7,37 +7,33 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * BookService, kitap yönetimi ile ilgili işlemleri gerçekleştiren servis sınıfıdır.
+ * Bu sınıf, kitap ekleme, bulma, geri verme ve listeleme işlemlerini yönetir.
+ */
 @Service
 public class BookService {
 
     private final BookDao bookDao;
 
+    /**
+     * BookService constructor'ı.
+     */
     @Autowired
     public BookService(BookDao bookDao) {
         this.bookDao = bookDao;
     }
+
+    /**
+     * Verilen kitap kimliğine göre kitabı bulur.
+     */
     public Book findBookById(int bookId) {
         return bookDao.findBookById(bookId);
     }
-    public void addBook(String title, String author, String publisher, int year) {
-        Book book = new Book(title, author, publisher, year);
-        bookDao.addBook(book);
-        System.out.println("Book added successfully.");
-    }
 
-
-
-    public void returnBook(int bookId) {
-        Book book = bookDao.getBookById(bookId);
-        if (book != null && book.isBorrowed()) {
-            book.setBorrowed(false);
-            bookDao.updateBook(book);
-            System.out.println("Book returned successfully.");
-        } else {
-            System.out.println("Unable to return the book.");
-        }
-    }
-
+    /**
+     * Tüm kitapları listeleyerek döndürür.
+     */
     public List<Book> listAllBooks() {
         List<Book> books = bookDao.getAllBooks();
         return books;

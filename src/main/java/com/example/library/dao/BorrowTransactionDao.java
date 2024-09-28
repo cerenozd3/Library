@@ -9,15 +9,24 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * BorrowTransactionDao, ödünç alma işlemleri ile ilgili veritabanı işlemlerini yöneten sınıftır.
+ */
 @Repository
 public class BorrowTransactionDao {
 
     private final JdbcTemplate jdbcTemplate;
 
+    /**
+     * BorrowTransactionDao constructor'ı.
+     */
     public BorrowTransactionDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * Yeni bir ödünç alma işlemini veritabanına ekler.
+     */
     public BorrowTransaction addTransaction(BorrowTransaction transaction) {
         String sql = "INSERT INTO borrowtransactions (bookId, memberId, borrowDate, returnDate) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql,
@@ -29,6 +38,9 @@ public class BorrowTransactionDao {
         return transaction;
     }
 
+    /**
+     * Verilen işlem kimliğine göre ödünç alma işlemini getirir.
+     */
     public BorrowTransaction findTransactionById(int transactionId) {
         String sql = "SELECT * FROM borrowtransactions WHERE transactionId = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{transactionId}, (rs, rowNum) -> {
@@ -62,8 +74,9 @@ public class BorrowTransactionDao {
         });
     }
 
-
-
+    /**
+     * Tüm ödünç alma işlemlerini veritabanından getirir.
+     */
     public List<BorrowTransaction> getAllTransactions() {
         String sql = "SELECT * FROM borrowtransactions";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -73,8 +86,8 @@ public class BorrowTransactionDao {
             Date borrowDate = rs.getDate("borrowDate");
             Date returnDate = rs.getDate("returnDate");
 
-            Member member = new Member();
-            Book book = new Book();
+            Member member = new Member(); // Üye bilgileri henüz doldurulmadı
+            Book book = new Book(); // Kitap bilgileri henüz doldurulmadı
 
             BorrowTransaction transaction = new BorrowTransaction(transactionId, member, book, borrowDate);
             transaction.setReturnDate(returnDate);
@@ -82,6 +95,9 @@ public class BorrowTransactionDao {
         });
     }
 
+    /**
+     * Var olan bir ödünç alma işlemini günceller.
+     */
     public BorrowTransaction updateTransaction(BorrowTransaction updatedTransaction) {
         String sql = "UPDATE borrowtransactions SET bookId = ?, memberId = ?, borrowDate = ?, returnDate = ? WHERE transactionId = ?";
 
@@ -101,11 +117,4 @@ public class BorrowTransactionDao {
         return updatedTransaction;
     }
 
-
-
-    public boolean deleteTransactionById(int transactionId) {
-        String sql = "DELETE FROM borrowtransactions WHERE transactionId = ?";
-        int affectedRows = jdbcTemplate.update(sql, transactionId);
-        return affectedRows > 0;
-    }
 }

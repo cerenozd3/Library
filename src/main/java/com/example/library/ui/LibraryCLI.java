@@ -12,7 +12,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * LibraryCLI, kütüphane yönetim sisteminin kullanıcı arayüzünü sağlayan sınıftır.
+ * Bu sınıf, kullanıcıdan aldığı girdilere göre kitap, üye ve ödünç alma işlemlerini yönetir.
+ */
 @Component
 public class LibraryCLI implements CommandLineRunner {
 
@@ -263,7 +266,7 @@ public class LibraryCLI implements CommandLineRunner {
             String firstName = scanner.nextLine();
             System.out.print("Yeni Üye Soyadı (boş bırakılırsa değişmez): ");
             String lastName = scanner.nextLine();
-            System.out.print("Yeni Email (boş bırakılırsa değişmez): ");
+            System.out.print("Yeni Email (lütfen doldurun**): ");
             String email = scanner.nextLine();
             System.out.print("Yeni Telefon (boş bırakılırsa değişmez): ");
             String phone = scanner.nextLine();
